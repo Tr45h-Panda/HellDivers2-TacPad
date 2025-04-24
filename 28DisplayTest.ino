@@ -19,6 +19,7 @@
 #include "BLEHIDDevice.h"
 #include "HIDTypes.h"
 #include "HIDKeyboardTypes.h"
+#include "stratagems_table.h"
 
 #define US_KEYBOARD 1
 
@@ -72,7 +73,7 @@ void Driver_Loop() {
 }
 void setup()
 {
-  Flash_test();
+  // Flash_test();
   PWR_Init();
   BAT_Init();
   I2C_Init();
@@ -86,7 +87,8 @@ void setup()
   // start Bluetooth task
   xTaskCreate(bluetoothTask, "bluetooth", 20000, NULL, 5, NULL);
   
-  SD_Init();
+  // SD_Init();
+  // Folder_retrieval(stratagems,);
   Audio_Init();
   LCD_Init();
 //   LCD_SetRotation(1);
@@ -106,121 +108,121 @@ void setup()
 void loop()
 {
   Lvgl_Loop();
-  vTaskDelay(pdMS_TO_TICKS(5));
-    if (bGUISend_Data == true) 
-    {
-      if ((Status & S5_RC00_BTN) == S5_RC00_BTN)
-      {
+  //vTaskDelay(pdMS_TO_TICKS(5));
+    // if (bGUISend_Data == true) 
+    // {
+    //   if ((Status & S5_RC00_BTN) == S5_RC00_BTN)
+    //   {
 
-        Status &= ~(S5_RC00_BTN);
-        bGUISend_Data = false;
-        Serial.println("Button 00 Pressed");
-        sendKeySequence("URDR");
-        delay(5);
-      }
-      if ((Status & S5_RC01_BTN) == S5_RC01_BTN)
-      {
+    //     Status &= ~(S5_RC00_BTN);
+    //     bGUISend_Data = false;
+    //     Serial.println("Button 00 Pressed");
+    //     sendKeySequence("URDR");
+    //     delay(5);
+    //   }
+    //   if ((Status & S5_RC01_BTN) == S5_RC01_BTN)
+    //   {
 
-        Status &= ~(S5_RC01_BTN);
-        bGUISend_Data = false;
-        Serial.println("Button 01 Pressed");
-        sendKeySequence("DLUDR");
-        delay(5);
-      }
-      if ((Status & S5_RC02_BTN) == S5_RC02_BTN)
-      {
+    //     Status &= ~(S5_RC01_BTN);
+    //     bGUISend_Data = false;
+    //     Serial.println("Button 01 Pressed");
+    //     sendKeySequence("DLUDR");
+    //     delay(5);
+    //   }
+    //   if ((Status & S5_RC02_BTN) == S5_RC02_BTN)
+    //   {
 
-        Status &= ~(S5_RC02_BTN);
-        bGUISend_Data = false;
-        Serial.println("Button 02 Pressed");
-        sendKeySequence("RDURD");
-        delay(5);
-      }
-      if ((Status & S5_RC03_BTN) == S5_RC03_BTN)
-      {
+    //     Status &= ~(S5_RC02_BTN);
+    //     bGUISend_Data = false;
+    //     Serial.println("Button 02 Pressed");
+    //     sendKeySequence("RDURD");
+    //     delay(5);
+    //   }
+    //   if ((Status & S5_RC03_BTN) == S5_RC03_BTN)
+    //   {
 
-        Status &= ~(S5_RC03_BTN);
-        bGUISend_Data = false;
-        Serial.println("Button 03 Pressed");
-        sendKeySequence("DULRLR");
-        delay(5);
-      }
+    //     Status &= ~(S5_RC03_BTN);
+    //     bGUISend_Data = false;
+    //     Serial.println("Button 03 Pressed");
+    //     sendKeySequence("DULRLR");
+    //     delay(5);
+    //   }
 
 
-      if ((Status & S5_RC10_BTN) == S5_RC10_BTN)
-      {
+    //   if ((Status & S5_RC10_BTN) == S5_RC10_BTN)
+    //   {
 
-        Status &= ~(S5_RC10_BTN);
-        bGUISend_Data = false;
-        Serial.println("Button 10 Pressed");
-        typeText("Button 10 Pressed \n");
-        delay(5);
-      }
-      if ((Status & S5_RC11_BTN) == S5_RC11_BTN)
-      {
+    //     Status &= ~(S5_RC10_BTN);
+    //     bGUISend_Data = false;
+    //     Serial.println("Button 10 Pressed");
+    //     typeText("Button 10 Pressed \n");
+    //     delay(5);
+    //   }
+    //   if ((Status & S5_RC11_BTN) == S5_RC11_BTN)
+    //   {
 
-        Status &= ~(S5_RC11_BTN);
-        bGUISend_Data = false;
-        Serial.println("Button 11 Pressed");
-        typeText("Button 11 Pressed \n");
-        delay(5);
-      }
-      if ((Status & S5_RC12_BTN) == S5_RC12_BTN)
-      {
+    //     Status &= ~(S5_RC11_BTN);
+    //     bGUISend_Data = false;
+    //     Serial.println("Button 11 Pressed");
+    //     typeText("Button 11 Pressed \n");
+    //     delay(5);
+    //   }
+    //   if ((Status & S5_RC12_BTN) == S5_RC12_BTN)
+    //   {
 
-        Status &= ~(S5_RC12_BTN);
-        bGUISend_Data = false;
-        Serial.println("Button 12 Pressed");
-        typeText("Button 12 Pressed \n");
-        delay(5);
-      }
-      if ((Status & S5_RC13_BTN) == S5_RC13_BTN)
-      {
+    //     Status &= ~(S5_RC12_BTN);
+    //     bGUISend_Data = false;
+    //     Serial.println("Button 12 Pressed");
+    //     typeText("Button 12 Pressed \n");
+    //     delay(5);
+    //   }
+    //   if ((Status & S5_RC13_BTN) == S5_RC13_BTN)
+    //   {
 
-        Status &= ~(S5_RC13_BTN);
-        bGUISend_Data = false;
-        Serial.println("Button 13 Pressed");
-        typeText("Button 13 Pressed \n");
-        delay(5);
-      }
+    //     Status &= ~(S5_RC13_BTN);
+    //     bGUISend_Data = false;
+    //     Serial.println("Button 13 Pressed");
+    //     typeText("Button 13 Pressed \n");
+    //     delay(5);
+    //   }
 
-      if ((Status & S5_RC20_BTN) == S5_RC20_BTN)
-      {
+    //   if ((Status & S5_RC20_BTN) == S5_RC20_BTN)
+    //   {
 
-        Status &= ~(S5_RC20_BTN);
-        bGUISend_Data = false;
-        Serial.println("Button 20 Pressed");
-        typeText("Button 20 Pressed \n");
-        delay(5);
-      }
-      if ((Status & S5_RC21_BTN) == S5_RC21_BTN)
-      {
+    //     Status &= ~(S5_RC20_BTN);
+    //     bGUISend_Data = false;
+    //     Serial.println("Button 20 Pressed");
+    //     typeText("Button 20 Pressed \n");
+    //     delay(5);
+    //   }
+    //   if ((Status & S5_RC21_BTN) == S5_RC21_BTN)
+    //   {
 
-        Status &= ~(S5_RC21_BTN);
-        bGUISend_Data = false;
-        Serial.println("Button 21 Pressed");
-        typeText("Button 21 Pressed \n");
-        delay(5);
-      }
-      if ((Status & S5_RC22_BTN) == S5_RC22_BTN)
-      {
+    //     Status &= ~(S5_RC21_BTN);
+    //     bGUISend_Data = false;
+    //     Serial.println("Button 21 Pressed");
+    //     typeText("Button 21 Pressed \n");
+    //     delay(5);
+    //   }
+    //   if ((Status & S5_RC22_BTN) == S5_RC22_BTN)
+    //   {
 
-        Status &= ~(S5_RC22_BTN);
-        bGUISend_Data = false;
-        Serial.println("Button 22 Pressed");
-        typeText("Button 22 Pressed \n");
-        delay(5);
-      }
-      if ((Status & S5_RC23_BTN) == S5_RC23_BTN)
-      {
+    //     Status &= ~(S5_RC22_BTN);
+    //     bGUISend_Data = false;
+    //     Serial.println("Button 22 Pressed");
+    //     typeText("Button 22 Pressed \n");
+    //     delay(5);
+    //   }
+    //   if ((Status & S5_RC23_BTN) == S5_RC23_BTN)
+    //   {
 
-        Status &= ~(S5_RC23_BTN);
-        bGUISend_Data = false;
-        Serial.println("Button 23 Pressed");
-        typeText("Button 23 Pressed \n");
-        delay(5);
-      }
-    }
+    //     Status &= ~(S5_RC23_BTN);
+    //     bGUISend_Data = false;
+    //     Serial.println("Button 23 Pressed");
+    //     typeText("Button 23 Pressed \n");
+    //     delay(5);
+    //   }
+    //}
 
     // delay(100);
   //delay(5);
